@@ -1,5 +1,8 @@
 import Hero from "@/components/Hero/Hero";
+import PopularItems from "@/components/PopularItems/PopularItems";
+import Promo from "@/components/Promo/Promo";
 import Slider from "@/components/Slider/Slider";
+import Testimonials from "@/components/Testimonials/Testimonials";
 import Image from "next/image";
 
 export default function Home() {
@@ -7,6 +10,9 @@ export default function Home() {
     <div>
       <Slider />
       <Hero />
+      <PopularItems />
+      <Promo />
+      <Testimonials />
     </div>
   );
 }
