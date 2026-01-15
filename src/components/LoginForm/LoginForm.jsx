@@ -1,7 +1,9 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const LoginForm = () => {
+  const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle login logic here
@@ -15,6 +17,8 @@ const LoginForm = () => {
     setError("");
     if (email === "admin@gmail.com" && password === "admin123") {
       //TODO:set cookie and redirect to home
+      cookieStore.set("auth", "true");
+      router.push("/");
     } else {
       setError("Invalid email or password");
     }

@@ -6,6 +6,19 @@ import React from "react";
 import Logo from "../Logo/Logo";
 
 const NavBar = () => {
+  const handleLogout = () => {
+    // Clear the auth cookie
+    document.cookie = "auth=; Max-Age=0; path=/";
+    // Redirect to home page
+    window.location.href = "/";
+  };
+  //check cookie for auth
+  const isLoggedIn =
+    document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("auth="))
+      ?.split("=")[1] === "true";
+
   const pathname = usePathname();
 
   const navLinkClass = (href) =>
@@ -27,6 +40,15 @@ const NavBar = () => {
           Products
         </Link>
       </li>
+
+      {isLoggedIn && (
+        <li>
+          <Link href="/add-product" className={navLinkClass("/add-product")}>
+            Add Product
+          </Link>
+        </li>
+      )}
+
       <li>
         <Link href="/about" className={navLinkClass("/about")}>
           About
@@ -63,12 +85,23 @@ const NavBar = () => {
       </div>
 
       <div className="navbar-end">
-        <Link href="/login" className="btn btn-secondary btn-sm">
-          Sign In
-        </Link>
-        <Link href="/register" className="btn btn-secondary btn-sm mr-2 ml-2">
-          Sign Up
-        </Link>
+        {isLoggedIn ? (
+          <button onClick={handleLogout} className="btn btn-outline btn-accent">
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link href="/login" className="btn btn-secondary btn-sm">
+              Sign In
+            </Link>
+            <Link
+              href="/register"
+              className="btn btn-secondary btn-sm mr-2 ml-2"
+            >
+              Sign Up
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
