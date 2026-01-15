@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import Logo from "../Logo/Logo";
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -54,14 +55,7 @@ const NavBar = () => {
           </ul>
         </div>
 
-        <Link href="/" className="flex items-center select-none">
-          <span className="bg-secondary text-secondary-content text-2xl font-extrabold px-3 py-2 rounded-l-2xl">
-            E
-          </span>
-          <span className="bg-primary text-primary-content text-2xl font-extrabold px-3 py-2 rounded-r-2xl">
-            Dokan
-          </span>
-        </Link>
+        <Logo />
       </div>
 
       <div className="navbar-center hidden lg:flex">
