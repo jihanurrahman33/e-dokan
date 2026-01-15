@@ -1,77 +1,80 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const NavBar = () => {
+  const pathname = usePathname();
+
+  const navLinkClass = (href) =>
+    `
+    font-medium transition
+    hover:text-accent
+    ${pathname === href ? "text-accent" : ""}
+    `;
+
+  const links = (
+    <>
+      <li>
+        <Link href="/" className={navLinkClass("/")}>
+          Home
+        </Link>
+      </li>
+      <li>
+        <Link href="/products" className={navLinkClass("/products")}>
+          Products
+        </Link>
+      </li>
+      <li>
+        <Link href="/about" className={navLinkClass("/about")}>
+          About
+        </Link>
+      </li>
+      <li>
+        <Link href="/contact" className={navLinkClass("/contact")}>
+          Contact
+        </Link>
+      </li>
+    </>
+  );
+
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-primary text-primary-content sticky top-0 z-10 px-4">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
+          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            ☰
+          </label>
           <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+
+        <Link href="/" className="flex items-center select-none">
+          <span className="bg-secondary text-secondary-content text-2xl font-extrabold px-3 py-2 rounded-l-2xl">
+            E
+          </span>
+          <span className="bg-primary text-primary-content text-2xl font-extrabold px-3 py-2 rounded-r-2xl">
+            Dokan
+          </span>
+        </Link>
       </div>
+
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-        </ul>
+        <ul className="menu menu-horizontal gap-2">{links}</ul>
       </div>
+
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <Link href="/login" className="btn btn-secondary btn-sm">
+          Sign In
+        </Link>
+        <Link href="/register" className="btn btn-secondary btn-sm mr-2 ml-2">
+          Sign Up
+        </Link>
       </div>
     </div>
   );
