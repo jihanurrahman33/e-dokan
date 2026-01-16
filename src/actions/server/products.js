@@ -7,6 +7,6 @@ export const getProducts = async () => {
 };
 
 export const addProduct = async (product) => {
-  const result = await dbConnect(collections.PRODUCTS).insertOne(product);
+  const result = (await dbConnect(collections.PRODUCTS)).insertOne(product);
   return result;
 };

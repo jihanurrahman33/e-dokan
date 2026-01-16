@@ -17,20 +17,24 @@ const AddProductForm = () => {
       description,
       price,
       imageUrl,
+      rating: 4.9,
+      stock: 100,
+      createdAt: new Date(),
     };
 
     try {
       const response = await addProduct(product);
+      console.log("Add product response:", response);
 
-      if (response.ok) {
+      if (response.acknowledged) {
         toast("Product added successfully!", { type: "success" });
         form.reset();
         router.push("/products");
       } else {
+        toast("Failed to add product. Please try again.", { type: "error" });
       }
     } catch (error) {
       console.error("Error adding product:", error);
-      toast("Failed to add product. Please try again.", { type: "error" });
     }
   };
   return (
