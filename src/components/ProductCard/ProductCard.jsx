@@ -1,28 +1,49 @@
+import Image from "next/image";
 import React from "react";
 import { FaStar } from "react-icons/fa6";
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
+  const { name, price, rating, imgUrl } = product;
+  const generateStars = (rating) => {
+    const maxStars = 5;
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = maxStars - fullStars - halfStar;
+
+    const stars = [];
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<FaStar key={`full-${i}`} className="text-yellow-400 " />);
+    }
+    if (halfStar === 1) {
+      stars.push(<FaStar key="half" className="text-yellow-400 " />);
+    }
+    for (let j = 0; j < emptyStars; j++) {
+      stars.push(<FaStar key={`empty-${j}`} className="text-gray-300 " />);
+    }
+    return stars;
+  };
   return (
-    <div className="card bg-base-100 w-70">
+    <div className="card bg-base-100 w-70 shadow-sm">
       <figure>
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+        <Image
+          src={imgUrl}
+          width={150}
+          height={150}
+          alt={name}
           className="rounded-xl"
         />
       </figure>
       <div className="card-body items-start text-left">
-        <h2 className="card-title">Modern Sneaker</h2>
-        <p className="text-lg">৳ 680</p>
+        <h2 className="card-title">{name}</h2>
+        <p className="text-lg">৳ {price}</p>
         <div className="flex">
-          {[1, 2, 3, 4, 5].map((_, index) => (
-            <FaStar key={index} className="text-yellow-400 " />
+          {generateStars(rating).map((star, index) => (
+            <span key={index}>{star}</span>
           ))}
         </div>
-
-        <div className="card-actions">
-          <button className="btn btn-outline">Add to Cart</button>
-          <button className="btn btn-primary">Buy Now</button>
+        <div className="card-actions ">
+          <button className="btn btn-outline ">Add to Cart</button>
+          <button className="btn btn-primary ">View</button>
         </div>
       </div>
     </div>
