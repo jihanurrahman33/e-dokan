@@ -1,4 +1,5 @@
 import { getProductById } from "@/actions/server/products";
+import AddToCart from "@/components/AddToCart/AddToCart";
 import Image from "next/image";
 
 const ProductDetails = async ({ params }) => {
@@ -47,9 +48,7 @@ const ProductDetails = async ({ params }) => {
 
           <div className="flex gap-4 pt-4">
             <button className="btn btn-primary btn-lg flex-1">Buy Now</button>
-            <button className="btn btn-outline btn-lg flex-1">
-              Add to Cart
-            </button>
+            <AddToCart />
           </div>
 
           <div className="border-t pt-4 text-sm text-gray-500">

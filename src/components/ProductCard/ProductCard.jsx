@@ -1,7 +1,9 @@
+import toast from "daisyui/components/toast";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaStar } from "react-icons/fa6";
+import AddToCart from "../AddToCart/AddToCart";
 
 const ProductCard = ({ product }) => {
   const { name, price, rating, imgUrl } = product;
@@ -23,6 +25,7 @@ const ProductCard = ({ product }) => {
     }
     return stars;
   };
+
   return (
     <div className="card bg-base-100 w-70 shadow-sm">
       <figure>
@@ -45,7 +48,7 @@ const ProductCard = ({ product }) => {
           ))}
         </div>
         <div className="card-actions ">
-          <button className="btn btn-outline ">Add to Cart</button>
+          <AddToCart />
           <Link href={`/products/${product._id}`} className="btn btn-primary ">
             View
           </Link>

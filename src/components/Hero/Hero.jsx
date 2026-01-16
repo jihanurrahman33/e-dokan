@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   FaShoppingBag,
@@ -24,7 +25,7 @@ const Hero = () => {
         ></div>
       </div>
 
-      <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
+      <div className="container mx-auto px-4 py-16 md:py-24 relative">
         <div className="max-w-6xl mx-auto">
           {/* Badge */}
           <div className="flex justify-center mb-6 animate-fade-in-down">
@@ -65,9 +66,12 @@ const Hero = () => {
               <FaShoppingBag className="w-5 h-5" />
               Start Shopping
             </button>
-            <button className="btn btn-outline btn-secondary btn-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Link
+              href="/products"
+              className="btn btn-outline btn-secondary btn-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            >
               View Products
-            </button>
+            </Link>
           </div>
 
           {/* Feature cards */}
