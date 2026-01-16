@@ -1,8 +1,40 @@
+"use client";
+import { addProduct } from "@/actions/server/products";
 import React from "react";
+import { toast } from "react-toastify";
 
 const AddProductForm = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const productName = form.productName.value;
+    const description = form.description.value;
+    const price = parseFloat(form.price.value);
+    const imageUrl = form.imageUrl.value;
+
+    const product = {
+      name: productName,
+      description,
+      price,
+      imageUrl,
+    };
+
+    try {
+      const response = await addProduct(product);
+
+      if (response.ok) {
+        toast("Product added successfully!", { type: "success" });
+        form.reset();
+        router.push("/products");
+      } else {
+      }
+    } catch (error) {
+      console.error("Error adding product:", error);
+      toast("Failed to add product. Please try again.", { type: "error" });
+    }
+  };
   return (
-    <form className="w-full max-w-md mt-4">
+    <form onSubmit={handleSubmit} className="w-full max-w-md mt-4">
       <div className="card bg-base-100 w-full shrink-0 shadow-2xl">
         <div className="card-body">
           <fieldset className="fieldset">
@@ -33,7 +65,9 @@ const AddProductForm = () => {
               className="input"
               placeholder="Image URL"
             />
-            <button className="btn btn-primary mt-4">Add Product</button>
+            <button type="submit" className="btn btn-primary mt-4">
+              Add Product
+            </button>
           </fieldset>
         </div>
       </div>

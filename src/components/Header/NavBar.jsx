@@ -13,12 +13,11 @@ const NavBar = () => {
     window.location.href = "/";
   };
   //check cookie for auth
-  const isLoggedIn =
-    document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("auth="))
-      ?.split("=")[1] === "true";
 
+  const isLoggedIn = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("auth="))
+    ?.split("=")[1];
   const pathname = usePathname();
 
   const navLinkClass = (href) =>
