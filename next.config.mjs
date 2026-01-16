@@ -19,6 +19,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "img.drz.lazcdn.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+      },
     ],
   },
 };
