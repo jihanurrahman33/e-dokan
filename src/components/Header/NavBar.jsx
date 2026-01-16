@@ -1,24 +1,27 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import Logo from "../Logo/Logo";
 
 const NavBar = () => {
+  const pathname = usePathname();
+
+  // Check cookie for auth only on client side
+  const isLoggedIn =
+    typeof document !== "undefined"
+      ? document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("auth="))
+          ?.split("=")[1]
+      : false;
+
   const handleLogout = () => {
     // Clear the auth cookie
     document.cookie = "auth=; Max-Age=0; path=/";
     // Redirect to home page
     window.location.href = "/";
   };
-  //check cookie for auth
-
-  const isLoggedIn = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("auth="))
-    ?.split("=")[1];
-  const pathname = usePathname();
 
   const navLinkClass = (href) =>
     `
