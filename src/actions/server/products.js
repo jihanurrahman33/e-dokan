@@ -29,3 +29,13 @@ export const getPopularProducts = async () => {
     .toArray();
   return products;
 };
+
+//get new arrival products based on createdAt field
+export const getNewArrivals = async () => {
+  const products = (await dbConnect(collections.PRODUCTS))
+    .find()
+    .sort({ createdAt: -1 })
+    .limit(8)
+    .toArray();
+  return products;
+};

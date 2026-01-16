@@ -6,7 +6,9 @@ const PopularItems = async () => {
   const popularItems = await getPopularProducts();
   return (
     <div>
-      <h2 className="text-3xl font-bold p-4">Popular Items</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 uppercase tracking-widest text-primary mt-4">
+        Popular Items
+      </h2>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
         {popularItems.map((item) => (
           <ProductCard key={item._id} product={item} />
