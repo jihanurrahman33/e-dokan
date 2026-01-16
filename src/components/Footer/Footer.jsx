@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../Logo/Logo";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -7,24 +8,51 @@ const Footer = () => {
       <aside>
         <Logo />
         <p>
-          ACME Industries Ltd.
+          Ecommerce Ltd.
           <br />
-          Providing reliable tech since 1992
+          Providing reliable tech since 2024
         </p>
       </aside>
       <nav>
         <h6 className="footer-title">Services</h6>
-        <a className="link link-hover">Branding</a>
-        <a className="link link-hover">Design</a>
-        <a className="link link-hover">Marketing</a>
-        <a className="link link-hover">Advertisement</a>
+        <Link href="/" className="link link-hover">
+          Home
+        </Link>
+        <Link href="/products" className="link link-hover">
+          Products
+        </Link>
+        <Link href="/about" className="link link-hover">
+          About
+        </Link>
+        <Link href="/contact" className="link link-hover">
+          Contact
+        </Link>
       </nav>
       <nav>
-        <h6 className="footer-title">Company</h6>
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Jobs</a>
-        <a className="link link-hover">Press kit</a>
+        <h6 className="footer-title">Social Links</h6>
+        <a
+          href="https://www.github.com/jihanurrahman33"
+          className="link link-hover"
+        >
+          Github
+        </a>
+
+        <a href="https://www.facebook.com/nishak69" className="link link-hover">
+          Facebook
+        </a>
+        <a
+          href="https://www.linkedin.com/in/md-jihanur-rahman/"
+          className="link link-hover"
+        >
+          LinkedIn
+        </a>
+
+        <a
+          href="https://www.instagram.com/nishak_69"
+          className="link link-hover"
+        >
+          Instagram
+        </a>
       </nav>
       <nav>
         <h6 className="footer-title">Legal</h6>
