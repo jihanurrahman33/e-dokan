@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FaStar } from "react-icons/fa6";
 
@@ -34,7 +35,9 @@ const ProductCard = ({ product }) => {
         />
       </figure>
       <div className="card-body items-start text-left">
-        <h2 className="card-title">{name}</h2>
+        <h2 className="card-title">
+          {name.length > 20 ? name.slice(0, 20) + "..." : name}
+        </h2>
         <p className="text-lg">৳ {price}</p>
         <div className="flex">
           {generateStars(rating).map((star, index) => (
@@ -43,7 +46,9 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="card-actions ">
           <button className="btn btn-outline ">Add to Cart</button>
-          <button className="btn btn-primary ">View</button>
+          <Link href={`/products/${product._id}`} className="btn btn-primary ">
+            View
+          </Link>
         </div>
       </div>
     </div>
