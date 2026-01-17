@@ -66,7 +66,7 @@ const NavBar = () => {
   const avatarLinks = (
     <>
       <li>
-        <Link href="/profile">Profile</Link>
+        <Link href="/dashboard/profile">Profile</Link>
       </li>
       <li>
         <Link href="/dashboard">Dashboard</Link>
