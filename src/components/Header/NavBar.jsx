@@ -63,6 +63,24 @@ const NavBar = () => {
       </li>
     </>
   );
+  const avatarLinks = (
+    <>
+      <li>
+        <Link href="/profile">Profile</Link>
+      </li>
+      <li>
+        <Link href="/dashboard">Dashboard</Link>
+      </li>
+      <li>
+        <a>Settings</a>
+      </li>
+      <li>
+        <button onClick={handleLogout} className="text-error">
+          Logout
+        </button>
+      </li>
+    </>
+  );
 
   return (
     <div className="navbar bg-primary text-primary-content sticky top-0 z-10 px-4">
@@ -88,9 +106,22 @@ const NavBar = () => {
 
       <div className="navbar-end">
         {isLoggedIn ? (
-          <button onClick={handleLogout} className="btn btn-outline btn-accent">
-            Logout
-          </button>
+          <div className="flex gap-2">
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="avatar rounded-full">
+                <div className="w-10 rounded-full">
+                  <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                </div>
+              </div>
+
+              <ul
+                tabIndex={0}
+                className="menu text-black dropdown-content mt-3 z-[1] w-52 p-2 shadow bg-base-200 rounded-box"
+              >
+                {avatarLinks}
+              </ul>
+            </div>
+          </div>
         ) : (
           <>
             <Link href="/login" className="btn btn-secondary btn-sm">

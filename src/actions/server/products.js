@@ -4,8 +4,24 @@ import { ObjectId } from "mongodb";
 
 const { dbConnect, collections } = require("@/lib/dbConnect");
 
-export const getProducts = async () => {
-  const products = (await dbConnect(collections.PRODUCTS)).find().toArray();
+export const getProducts = async (priceFilter) => {
+  console.log("Price Filter:", priceFilter);
+  //price filters Under 50, 51-100, 101-200, Over 200
+  let query = {};
+  if (priceFilter) {
+    if (priceFilter === "Under 50") {
+      query.price = { $lt: 50 };
+    } else if (priceFilter === "51-100") {
+      query.price = { $gte: 51, $lte: 100 };
+    } else if (priceFilter === "101-200") {
+      query.price = { $gte: 101, $lte: 200 };
+    } else if (priceFilter === "Over 200") {
+      query.price = { $gt: 200 };
+    }
+  }
+  const products = (await dbConnect(collections.PRODUCTS))
+    .find(query)
+    .toArray();
   return products;
 };
 
