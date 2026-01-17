@@ -4,8 +4,7 @@ import { ObjectId } from "mongodb";
 
 const { dbConnect, collections } = require("@/lib/dbConnect");
 
-export const getProducts = async (priceFilter) => {
-  console.log("Price Filter:", priceFilter);
+export const getProducts = async (priceFilter, paginationPage) => {
   //price filters Under 50, 51-100, 101-200, Over 200
   let query = {};
   if (priceFilter) {
@@ -19,10 +18,24 @@ export const getProducts = async (priceFilter) => {
       query.price = { $gt: 200 };
     }
   }
-  const products = (await dbConnect(collections.PRODUCTS))
+  // Get total count of products for pagination
+  const totalCount = await (
+    await dbConnect(collections.PRODUCTS)
+  ).countDocuments(query);
+  const totalPages = Math.ceil(totalCount / 10);
+
+  // Fetch products from the database based on the constructed query
+  const cursor = (await dbConnect(collections.PRODUCTS))
     .find(query)
-    .toArray();
-  return products;
+    .skip((paginationPage - 1) * 10)
+    .limit(10);
+
+  const products = await cursor.toArray();
+
+  return {
+    products,
+    totalPages,
+  };
 };
 
 export const addProduct = async (product) => {

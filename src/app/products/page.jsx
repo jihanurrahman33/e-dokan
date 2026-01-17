@@ -1,5 +1,6 @@
 import { getProducts } from "@/actions/server/products";
 import Filters from "@/components/Filters/Filters";
+import PaginationButtons from "@/components/PaginationButton/PaginationButtons";
 import PriceFilter from "@/components/PriceFilter/PriceFilter";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import React from "react";
@@ -7,7 +8,12 @@ import React from "react";
 const Products = async ({ searchParams }) => {
   const params = await searchParams;
   const priceFilter = params?.price || null;
-  const products = await getProducts(priceFilter);
+  const paginationPage = parseInt(params?.page) || 1;
+
+  const { products, totalPages } = await getProducts(
+    priceFilter,
+    paginationPage,
+  );
 
   return (
     <div className="flex p-4">
@@ -23,6 +29,8 @@ const Products = async ({ searchParams }) => {
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
+        {/* pagination  */}
+        {totalPages > 1 && <PaginationButtons totalPages={totalPages} />}
       </div>
     </div>
   );
