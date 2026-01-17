@@ -5,11 +5,11 @@ import React from "react";
 const Products = async () => {
   const products = await getProducts();
   return (
-    <div className="p-4 ">
+    <div className="p-4 max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold mb-8">
         All Products: {products.length}
       </h1>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center justify-center">
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}

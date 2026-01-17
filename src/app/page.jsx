@@ -16,8 +16,8 @@ export default function Home() {
       <Slider />
       <Hero />
       <NewArrivals />
-      <PopularItems />
       <Promo />
+      <PopularItems />
       <Brands />
       <Testimonials />
     </div>
