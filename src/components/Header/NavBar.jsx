@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import Logo from "../Logo/Logo";
+import { TiShoppingCart } from "react-icons/ti";
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -106,7 +107,10 @@ const NavBar = () => {
 
       <div className="navbar-end">
         {isLoggedIn ? (
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
+            <Link href="/cart" className="text-2xl relative">
+              <TiShoppingCart size={28} className="cursor-pointer" />
+            </Link>
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="avatar rounded-full">
                 <div className="w-10 rounded-full">
