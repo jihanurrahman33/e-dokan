@@ -1,30 +1,44 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import GoogleLogin from "../SocialLogin/GoogleLogin";
+import { signIn } from "next-auth/react";
 
 const LoginForm = () => {
   const router = useRouter();
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
+
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    if (email === "" || password === "") {
+
+    if (!email || !password) {
       setError("Please fill in all fields");
       return;
     }
+
     setError("");
-    if (email === "admin@gmail.com" && password === "admin123") {
-      //TODO:set cookie and redirect to home
-      cookieStore.set("auth", "true");
-      router.push("/");
-    } else {
+    setLoading(true);
+
+    const result = await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: "/",
+      redirect: false,
+    });
+
+    if (result?.error) {
       setError("Invalid email or password");
+    } else {
+      router.push("/");
     }
+
+    setLoading(false);
   };
-  const [error, setError] = useState("");
   return (
     <form
       onSubmit={handleSubmit}
