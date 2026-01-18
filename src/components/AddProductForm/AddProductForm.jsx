@@ -34,7 +34,7 @@ const AddProductForm = () => {
 
     try {
       const response = await addProduct(product);
-      console.log("Add product response:", response);
+
       if (response.acknowledged) {
         toast.success("Product added successfully!");
         form.reset();
@@ -43,7 +43,6 @@ const AddProductForm = () => {
         toast.error("Failed to add product. Please try again.");
       }
     } catch (error) {
-      console.error("Error adding product:", error);
       toast.error("An error occurred while adding the product.");
     }
   };

@@ -28,7 +28,7 @@ export async function registerUser(data) {
   const newUser = {
     name: data.name,
     email: data.email,
-    password: await bcrypt.hash(data.password, 10), // hash in real apps
+    password: await bcrypt.hash(data.password, 10),
     role: "user",
     createdAt: new Date(),
   };

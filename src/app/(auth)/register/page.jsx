@@ -9,6 +9,7 @@ const Register = () => {
     const result = await registerUser({
       name: formData.get("fullName"),
       email: formData.get("email"),
+
       password: formData.get("password"),
       confirmPassword: formData.get("confirmPassword"),
     });
