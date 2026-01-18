@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { signIn } from "next-auth/react";
+import { addUserToDB } from "@/actions/server/users";
 
 const GoogleLogin = () => {
   const handleGoogleLogin = async () => {
@@ -14,7 +15,7 @@ const GoogleLogin = () => {
   return (
     <button
       onClick={handleGoogleLogin}
-      className="btn bg-white text-black border-[#e5e5e5]"
+      className="btn bg-white text-black border-[#e5e5e5] w-full hover:bg-gray-100 flex items-center justify-center gap-2"
     >
       <svg
         aria-label="Google logo"

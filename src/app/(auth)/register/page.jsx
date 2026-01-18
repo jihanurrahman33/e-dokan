@@ -1,6 +1,7 @@
+import GoogleLogin from "@/components/SocialLogin/GoogleLogin";
 import React from "react";
 
-const page = () => {
+const Register = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-center mt-10">Register Now!</h1>
@@ -56,9 +57,12 @@ const page = () => {
             Register
           </button>
         </form>
+        <div className="mt-2">
+          <GoogleLogin />
+        </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default Register;

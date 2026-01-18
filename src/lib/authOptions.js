@@ -1,5 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { addUserToDB } from "@/actions/server/users";
+import { signIn } from "next-auth/react";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -7,6 +9,7 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
@@ -33,6 +36,25 @@ export const authOptions = {
         }
       },
     }),
+
     // ...add more providers here
   ],
+  callbacks: {
+    async signIn({ user, account }) {
+      // Only store Google users
+      if (account?.provider === "google") {
+        const userInfo = {
+          name: user.name,
+          email: user.email,
+          image: user.image,
+          role: "user",
+          createdAt: new Date(),
+        };
+
+        await addUserToDB(userInfo);
+      }
+
+      return true;
+    },
+  },
 };
