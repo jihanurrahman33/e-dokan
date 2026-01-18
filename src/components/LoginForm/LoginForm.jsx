@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import GoogleLogin from "../SocialLogin/GoogleLogin";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -52,6 +53,7 @@ const LoginForm = () => {
           </div>
           <button className="btn btn-primary mt-4">Login</button>
         </fieldset>
+        <GoogleLogin />
       </div>
     </form>
   );

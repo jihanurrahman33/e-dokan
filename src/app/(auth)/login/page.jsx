@@ -1,4 +1,5 @@
 import LoginForm from "@/components/LoginForm/LoginForm";
+import GoogleLogin from "@/components/SocialLogin/GoogleLogin";
 import React from "react";
 
 const Login = () => {

@@ -4,8 +4,11 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import Logo from "../Logo/Logo";
 import { TiShoppingCart } from "react-icons/ti";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 const NavBar = () => {
+  const session = useSession();
   const pathname = usePathname();
 
   // Check cookie for auth only on client side
@@ -16,10 +19,12 @@ const NavBar = () => {
           .find((row) => row.startsWith("auth="))
           ?.split("=")[1]
       : false;
-
-  const handleLogout = () => {
+  const sessionIsLoggedIn = session?.data?.user ? true : false;
+  const handleLogout = async () => {
     // Clear the auth cookie
     document.cookie = "auth=; Max-Age=0; path=/";
+    const rs = await signOut({ callbackUrl: "/", redirect: true });
+
     // Redirect to home page
     window.location.href = "/";
   };
@@ -44,7 +49,7 @@ const NavBar = () => {
         </Link>
       </li>
 
-      {isLoggedIn && (
+      {(isLoggedIn || sessionIsLoggedIn) && (
         <li>
           <Link href="/add-product" className={navLinkClass("/add-product")}>
             Add Product
@@ -106,7 +111,7 @@ const NavBar = () => {
       </div>
 
       <div className="navbar-end">
-        {isLoggedIn ? (
+        {isLoggedIn || sessionIsLoggedIn ? (
           <div className="flex items-center gap-2">
             <Link href="/cart" className="text-2xl relative">
               <TiShoppingCart size={28} className="cursor-pointer" />
@@ -114,7 +119,12 @@ const NavBar = () => {
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="avatar rounded-full">
                 <div className="w-10 rounded-full">
-                  <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                  <Image
+                    width={50}
+                    height={50}
+                    alt={session?.data?.user?.name.split(" ")[0]}
+                    src={session?.data?.user?.image}
+                  />
                 </div>
               </div>
 

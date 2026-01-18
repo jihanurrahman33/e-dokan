@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/Header/NavBar";
 import Footer from "@/components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
+import NextAuthProvider from "@/Provider/NextAuthProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,13 +17,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        <ToastContainer />
-        <NavBar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <NextAuthProvider>
+      <html lang="en">
+        <body className={`${inter.variable} antialiased`}>
+          <ToastContainer />
+          <NavBar />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </NextAuthProvider>
   );
 }
