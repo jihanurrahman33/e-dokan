@@ -35,10 +35,30 @@ export const authOptions = {
         }
       },
     }),
-
     // ...add more providers here
   ],
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
+    async jwt({ token, user }) {
+      // When user signs in
+      if (user) {
+        //fetch the user from db to get role
+        const dbUser = await (
+          await dbConnect(collections.USERS)
+        ).findOne({ email: user.email });
+        token.role = dbUser?.role || "user";
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      // Add role to session
+
+      session.user.role = token.role;
+      return session;
+    },
     async signIn({ user, account }) {
       // Only store Google users
       if (account?.provider === "google") {
@@ -56,4 +76,5 @@ export const authOptions = {
       return true;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };

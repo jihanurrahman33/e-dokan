@@ -1,15 +1,20 @@
+import { authOptions } from "@/lib/authOptions";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/dist/server/api-utils";
 import React from "react";
+import AdminHome from "./(AdminDashboard)/AdminHome/AdminHome";
+import UserHome from "./(UserDashboard)/UserHome/UserHome";
 
-const Dashboard = () => {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-center mt-10">Dashboard</h1>
-      <p className="text-center text-gray-600">
-        Welcome to your dashboard! Here you can manage your products, view
-        orders, and track your sales performance.
-      </p>
-    </div>
-  );
+const Dashboard = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session || session.user.role !== "admin") {
+    return <UserHome />;
+  } else if (session.user.role === "admin") {
+    return <AdminHome />;
+  }
+
+  return redirect("/");
 };
 
 export default Dashboard;
