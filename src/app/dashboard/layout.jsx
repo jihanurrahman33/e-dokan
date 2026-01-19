@@ -95,6 +95,14 @@ const DashboardLayout = async ({ children }) => {
                   </p>
                 </div>
               )}
+              {userRole === "user" && (
+                <div className="mt-3 px-3 py-1.5 bg-accent/20 border border-accent rounded-lg">
+                  <p className="text-xs font-semibold text-accent uppercase tracking-wider">
+                    {userRole.charAt(0).toUpperCase() + userRole.slice(1)}{" "}
+                    Dashboard
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Navigation */}
@@ -120,6 +128,50 @@ const DashboardLayout = async ({ children }) => {
                     <span className="font-medium">Account Info</span>
                   </Link>
                 </div>
+
+                {/* User Section */}
+                {userRole === "user" && (
+                  <div className="mb-6">
+                    <p className="px-3 mb-2 text-xs font-semibold text-neutral opacity-60 uppercase tracking-wider">
+                      User Tools
+                    </p>
+                    <Link
+                      href="/dashboard/my-orders"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral hover:bg-secondary hover:text-secondary-content transition-all duration-200 group"
+                    >
+                      <IoIosListBox className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <span className="font-medium">My Orders</span>
+                    </Link>
+                    <Link
+                      href="/dashboard/addresses"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral hover:bg-secondary hover:text-secondary-content transition-all duration-200 group"
+                    >
+                      <IoIosAddCircleOutline className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <span className="font-medium">Addresses</span>
+                    </Link>
+                    <Link
+                      href="/dashboard/payment-methods"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral hover:bg-secondary hover:text-secondary-content transition-all duration-200 group"
+                    >
+                      <IoIosPeople className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <span className="font-medium">Payment Methods</span>
+                    </Link>
+                    <Link
+                      href="/dashboard/wishlist"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral hover:bg-secondary hover:text-secondary-content transition-all duration-200 group"
+                    >
+                      <IoIosAddCircleOutline className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <span className="font-medium">Wish List</span>
+                    </Link>
+                    <Link
+                      href="/dashboard/invoices"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral hover:bg-secondary hover:text-secondary-content transition-all duration-200 group"
+                    >
+                      <IoIosListBox className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <span className="font-medium">Invoices</span>
+                    </Link>
+                  </div>
+                )}
 
                 {/* Admin Section */}
                 {userRole === "admin" && (
