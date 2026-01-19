@@ -29,9 +29,11 @@ const Hero = () => {
         <div className="max-w-6xl mx-auto">
           {/* Badge */}
           <div className="flex justify-center mb-6 animate-fade-in-down">
-            <div className="badge badge-lg bg-gradient-to-r from-secondary to-primary text-secondary-content border-0 px-6 py-4 gap-2 shadow-lg">
+            <div className="badge badge-lg  bg-gradient-to-r from-secondary to-primary text-secondary-content border-0 px-16 py-16 gap-2 shadow-lg">
               <FaLeaf className="w-4 h-4" />
-              <span className="font-semibold">100% Organic & Fresh</span>
+              <span className="font-semibold text-2xl">
+                100% Organic & Fresh
+              </span>
             </div>
           </div>
 

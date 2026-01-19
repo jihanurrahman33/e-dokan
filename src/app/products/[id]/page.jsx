@@ -10,7 +10,7 @@ const ProductDetails = async ({ params }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         <div className="w-full bg-base-200 rounded-xl p-6 flex justify-center">
           <Image
-            src={product.imgUrl}
+            src={product.imageUrl}
             alt={product.name}
             width={420}
             height={420}
@@ -46,8 +46,10 @@ const ProductDetails = async ({ params }) => {
 
           <p className="text-gray-600 leading-relaxed">{product.description}</p>
 
-          <div className="flex gap-4 pt-4">
-            <button className="btn btn-primary btn-lg flex-1">Buy Now</button>
+          <div className="flex flex-col gap-4 pt-4">
+            <button className="btn btn-primary btn-lg flex-1 p-2">
+              Buy Now
+            </button>
             <AddToCart />
           </div>
 

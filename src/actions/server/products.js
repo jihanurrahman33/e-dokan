@@ -22,13 +22,13 @@ export const getProducts = async (priceFilter, paginationPage) => {
   const totalCount = await (
     await dbConnect(collections.PRODUCTS)
   ).countDocuments(query);
-  const totalPages = Math.ceil(totalCount / 10);
+  const totalPages = Math.ceil(totalCount / 12);
 
   // Fetch products from the database based on the constructed query
   const cursor = (await dbConnect(collections.PRODUCTS))
     .find(query)
-    .skip((paginationPage - 1) * 10)
-    .limit(10);
+    .skip((paginationPage - 1) * 12)
+    .limit(12);
 
   const products = await cursor.toArray();
 

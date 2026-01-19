@@ -6,7 +6,8 @@ import { FaStar } from "react-icons/fa6";
 import AddToCart from "../AddToCart/AddToCart";
 
 const ProductCard = ({ product }) => {
-  const { name, price, rating, imgUrl } = product;
+  const { name, price, rating, imageUrl } = product;
+  console.log(product);
   const generateStars = (rating) => {
     const maxStars = 5;
     const fullStars = Math.floor(rating);
@@ -27,14 +28,14 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="card bg-base-100 w-60 shadow-sm">
+    <div className="card bg-base-100 w-70 shadow-sm">
       <figure>
         <Image
-          src={imgUrl}
+          src={imageUrl}
           width={150}
           height={150}
           alt={name}
-          className="rounded-xl"
+          className="rounded-xl w-[150px] h-[150px] object-cover mt-4"
         />
       </figure>
       <div className="card-body items-start text-left">
@@ -47,9 +48,12 @@ const ProductCard = ({ product }) => {
             <span key={index}>{star}</span>
           ))}
         </div>
-        <div className="card-actions ">
+        <div className="card-actions w-full justify-between mt-4">
           <AddToCart />
-          <Link href={`/products/${product._id}`} className="btn btn-primary ">
+          <Link
+            href={`/products/${product._id}`}
+            className="btn btn-primary w-full"
+          >
             View
           </Link>
         </div>

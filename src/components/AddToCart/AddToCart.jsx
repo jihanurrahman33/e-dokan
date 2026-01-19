@@ -8,7 +8,7 @@ const AddToCart = () => {
     toast.success("Product added to cart!");
   };
   return (
-    <button onClick={handleAddToCart} className="btn btn-outline ">
+    <button onClick={handleAddToCart} className="btn btn-outline w-full">
       Add to Cart
     </button>
   );

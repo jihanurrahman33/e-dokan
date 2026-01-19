@@ -1,6 +1,6 @@
 "use client";
 import { addProduct } from "@/actions/server/products";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import {
@@ -9,9 +9,11 @@ import {
   FaFileAlt,
   FaTag,
   FaPlus,
+  FaBoxes,
 } from "react-icons/fa";
 
 const AddProductForm = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -20,15 +22,49 @@ const AddProductForm = () => {
     const productName = form.productName.value;
     const description = form.description.value;
     const price = parseFloat(form.price.value);
-    const imageUrl = form.imageUrl.value;
+    const imageFile = form.imageFile.files[0];
+    const stock = parseInt(form.stock.value, 10);
+    const category = form.category.value;
+
+    //get image url from imgbb
+    let imageUrl = "";
+    if (imageFile) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("image", imageFile);
+      const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+
+      try {
+        const response = await fetch(
+          `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+        const data = await response.json();
+        if (data.success) {
+          imageUrl = data.data.url;
+        } else {
+          toast.error("Image upload failed. Please try again.");
+          setLoading(false);
+          return;
+        }
+      } catch (error) {
+        toast.error("Image upload failed. Please try again.");
+        setLoading(false);
+        return;
+      }
+    }
 
     const product = {
       name: productName,
       description,
       price,
-      imageUrl,
+      imageUrl: imageUrl,
       rating: 4.9,
-      stock: 100,
+      stock,
+      category,
       createdAt: new Date(),
     };
 
@@ -44,6 +80,8 @@ const AddProductForm = () => {
       }
     } catch (error) {
       toast.error("An error occurred while adding the product.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -108,26 +146,63 @@ const AddProductForm = () => {
             </div>
           </div>
 
-          {/* Image URL */}
-          <div className="form-control">
+          {/* Image File */}
+          <div className="form-control flex flex-col">
             <label className="label">
               <span className="label-text font-semibold text-neutral flex items-center gap-2">
                 <FaImage className="w-4 h-4 text-primary" />
-                Image URL
+                Product Image
               </span>
             </label>
             <input
-              type="url"
-              name="imageUrl"
-              className="input input-bordered w-full focus:input-primary transition-all duration-300"
-              placeholder="https://example.com/image.jpg"
-              required
+              type="file"
+              name="imageFile"
+              className="file-input w-full mt-2"
+              disabled={loading}
             />
+          </div>
+          {/* Categorie  */}
+          <div>
             <label className="label">
-              <span className="label-text-alt text-neutral/60">
-                Enter a valid image URL for your product
+              <span className="label-text font-semibold text-neutral flex items-center gap-2">
+                <FaTag className="w-4 h-4 text-primary" />
+                Category
               </span>
             </label>
+            <select
+              name="category"
+              className="select select-bordered w-full focus:select-primary transition-all duration-300"
+              required
+            >
+              <option value="" disabled selected>
+                Select a category
+              </option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home-appliances">Home Appliances</option>
+              <option value="groceries">Groceries</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          {/* Stock */}
+          <div>
+            <label className="label">
+              <span className="label-text font-semibold text-neutral flex items-center gap-2">
+                <FaBoxes className="w-4 h-4 text-primary" />
+                Stock-(Units Available)
+              </span>
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                name="stock"
+                step="1"
+                min="0"
+                className="input input-bordered w-full pl-8 focus:input-primary transition-all duration-300"
+                placeholder="0"
+                required
+              />
+            </div>
           </div>
 
           {/* Divider */}
@@ -142,12 +217,6 @@ const AddProductForm = () => {
               <div>
                 <span className="text-neutral/60">Rating:</span>
                 <span className="ml-2 font-semibold text-accent">4.9 ⭐</span>
-              </div>
-              <div>
-                <span className="text-neutral/60">Stock:</span>
-                <span className="ml-2 font-semibold text-secondary">
-                  100 units
-                </span>
               </div>
             </div>
           </div>
