@@ -7,7 +7,7 @@ import AddToCart from "../AddToCart/AddToCart";
 
 const ProductCard = ({ product }) => {
   const { name, price, rating, imageUrl } = product;
-  console.log(product);
+
   const generateStars = (rating) => {
     const maxStars = 5;
     const fullStars = Math.floor(rating);
