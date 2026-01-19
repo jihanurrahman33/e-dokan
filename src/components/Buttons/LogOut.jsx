@@ -11,7 +11,11 @@ const LogOut = () => {
     // Redirect to home page
     window.location.href = "/";
   };
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button onClick={handleLogout} className="w-full text-left">
+      Logout
+    </button>
+  );
 };
 
 export default LogOut;
