@@ -10,25 +10,61 @@ const Profile = async () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Profile Page</h1>
-      {session ? (
-        <div className="flex items-center space-x-4">
-          <Image
-            src={session.user.image || "/default-profile.png"}
-            alt="Profile Picture"
-            width={100}
-            height={100}
-            className="rounded-full"
-          />
+      <div>
+        <h2 className="text-2xl font-semibold text-primary">
+          Account Information
+        </h2>
+        <p className="text-lg font-medium text-primary mb-2">
+          Manage your personal details and contact information
+        </p>
+      </div>
+      <section className="w-3/5">
+        <div className="card p-4 shadow-sm mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h2 className="font-bold">Personal Details</h2>
+              <p className="text-sm text-gray-600">
+                Your basic account information
+              </p>
+            </div>
+            <div>
+              <button className="btn btn-primary text-primary-content">
+                Edit
+              </button>
+            </div>
+          </div>
           <div>
-            <h2 className="text-xl font-semibold">{session.user.name}</h2>
-            <p className="text-gray-600">{session.user.email}</p>
-            <p className="text-gray-600">Role: {userRole}</p>
+            <label htmlFor="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              defaultValue={session?.user?.name}
+              disabled
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              defaultValue={session?.user?.email}
+              disabled
+              className="input bg-gray-50 w-full"
+            />
+          </div>
+          <div>
+            <label htmlFor="role">Role</label>
+            <input
+              type="text"
+              id="role"
+              defaultValue={userRole}
+              className="input input-bordered w-full"
+              disabled
+            />
           </div>
         </div>
-      ) : (
-        <p>No user session found.</p>
-      )}
+      </section>
     </div>
   );
 };

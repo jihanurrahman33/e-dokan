@@ -1,12 +1,11 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, EffectCards } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { FaStar, FaQuoteLeft } from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/effect-cards";
 import Image from "next/image";
 
 const Testimonials = () => {
@@ -46,24 +45,18 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-base-100 via-base-200 to-base-100 overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-12 md:py-16 bg-base-200">
+      <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-accent/20 text-neutral px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            <FaStar className="w-4 h-4 text-accent" />
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-accent/20 text-neutral px-3 py-1.5 rounded-full text-sm font-semibold mb-3">
+            <FaStar className="w-3.5 h-3.5 text-accent" />
             <span>Testimonials</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-neutral mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-neutral mb-3">
             What Our <span className="text-primary">Customers</span> Say
           </h2>
-          <p className="text-neutral/70 text-lg max-w-2xl mx-auto">
+          <p className="text-neutral/70 max-w-2xl mx-auto">
             Don&apos;t just take our word for it. Here&apos;s what our satisfied
             customers have to say about their experience.
           </p>
@@ -76,11 +69,11 @@ const Testimonials = () => {
             autoplay={{ delay: 5000, disableOnInteraction: false }}
             pagination={{
               clickable: true,
-              bulletClass: "swiper-pagination-bullet !bg-primary",
+              bulletClass: "swiper-pagination-bullet !bg-primary/30",
               bulletActiveClass: "swiper-pagination-bullet-active !bg-primary",
             }}
             loop
-            spaceBetween={30}
+            spaceBetween={24}
             slidesPerView={1}
             breakpoints={{
               768: {
@@ -89,53 +82,51 @@ const Testimonials = () => {
               },
               1024: {
                 slidesPerView: 2,
-                spaceBetween: 30,
+                spaceBetween: 24,
               },
             }}
-            className="pb-16"
+            className="pb-12"
           >
             {testimonials.map((item, index) => (
               <SwiperSlide key={index}>
-                <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 border border-base-300 h-full">
-                  <div className="card-body">
-                    {/* Quote Icon */}
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="bg-primary/10 p-3 rounded-xl">
-                        <FaQuoteLeft className="w-6 h-6 text-primary" />
-                      </div>
-
-                      {/* Star Rating */}
-                      <div className="flex gap-1">
-                        {[...Array(item.rating)].map((_, i) => (
-                          <FaStar key={i} className="w-4 h-4 text-accent" />
-                        ))}
-                      </div>
+                <div className="bg-base-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 border border-base-300/50 h-full">
+                  {/* Quote Icon and Rating */}
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="bg-primary/10 p-2.5 rounded-lg">
+                      <FaQuoteLeft className="w-5 h-5 text-primary" />
                     </div>
 
-                    {/* Message */}
-                    <p className="text-neutral/80 text-base leading-relaxed mb-6">
-                      {item.message}
-                    </p>
+                    {/* Star Rating */}
+                    <div className="flex gap-0.5">
+                      {[...Array(item.rating)].map((_, i) => (
+                        <FaStar key={i} className="w-4 h-4 text-accent" />
+                      ))}
+                    </div>
+                  </div>
 
-                    {/* Customer Info */}
-                    <div className="flex items-center gap-4 mt-auto pt-4 border-t border-base-300">
-                      <div className="avatar">
-                        <div className="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                          <Image
-                            height={56}
-                            width={56}
-                            src={item.image}
-                            alt={item.name}
-                            className="rounded-full"
-                          />
-                        </div>
+                  {/* Message */}
+                  <p className="text-neutral/80 text-sm md:text-base leading-relaxed mb-5">
+                    {item.message}
+                  </p>
+
+                  {/* Customer Info */}
+                  <div className="flex items-center gap-3 pt-4 border-t border-base-300/50">
+                    <div className="avatar">
+                      <div className="w-12 h-12 rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
+                        <Image
+                          height={48}
+                          width={48}
+                          src={item.image}
+                          alt={item.name}
+                          className="rounded-full"
+                        />
                       </div>
-                      <div>
-                        <h4 className="font-bold text-neutral text-lg">
-                          {item.name}
-                        </h4>
-                        <p className="text-sm text-neutral/60">{item.role}</p>
-                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-neutral">
+                        {item.name}
+                      </h4>
+                      <p className="text-sm text-neutral/60">{item.role}</p>
                     </div>
                   </div>
                 </div>
@@ -145,10 +136,10 @@ const Testimonials = () => {
         </div>
 
         {/* Trust Badge */}
-        <div className="text-center mt-12">
-          <div className="inline-flex items-center gap-2 text-neutral/60">
-            <FaStar className="w-5 h-5 text-accent" />
-            <span className="font-semibold">
+        <div className="text-center mt-8">
+          <div className="inline-flex items-center gap-2 text-neutral/70">
+            <FaStar className="w-4 h-4 text-accent" />
+            <span className="text-sm font-medium">
               4.9/5 average rating from 10,000+ reviews
             </span>
           </div>

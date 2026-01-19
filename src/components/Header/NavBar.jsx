@@ -6,6 +6,7 @@ import Logo from "../Logo/Logo";
 import { TiShoppingCart } from "react-icons/ti";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import LogOut from "../Buttons/LogOut";
 
 const NavBar = () => {
   const session = useSession();
@@ -20,14 +21,6 @@ const NavBar = () => {
           ?.split("=")[1]
       : false;
   const sessionIsLoggedIn = session?.data?.user ? true : false;
-  const handleLogout = async () => {
-    // Clear the auth cookie
-    document.cookie = "auth=; Max-Age=0; path=/";
-    const rs = await signOut({ callbackUrl: "/", redirect: true });
-
-    // Redirect to home page
-    window.location.href = "/";
-  };
 
   const navLinkClass = (href) =>
     `
@@ -64,20 +57,17 @@ const NavBar = () => {
   const avatarLinks = (
     <>
       <li>
-        <Link href="/dashboard/profile">Profile</Link>
+        <Link href="/dashboard">Dashboard</Link>
       </li>
 
-      <li>
-        <Link href="/dashboard/add-product">Add Product</Link>
-      </li>
+      {session?.data?.user?.role === "admin" && (
+        <li>
+          <Link href="/dashboard/add-product">Add Product</Link>
+        </li>
+      )}
 
       <li>
-        <a>Settings</a>
-      </li>
-      <li>
-        <button onClick={handleLogout} className="text-error">
-          Logout
-        </button>
+        <LogOut />
       </li>
     </>
   );
