@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/Header/NavBar";
-import Footer from "@/components/Footer/Footer";
+
 import { ToastContainer } from "react-toastify";
 import NextAuthProvider from "@/Provider/NextAuthProvider";
 
@@ -21,9 +20,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={`${inter.variable} antialiased`}>
           <ToastContainer />
-          <NavBar />
           {children}
-          <Footer />
         </body>
       </html>
     </NextAuthProvider>
