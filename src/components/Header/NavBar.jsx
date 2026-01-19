@@ -49,14 +49,6 @@ const NavBar = () => {
         </Link>
       </li>
 
-      {(isLoggedIn || sessionIsLoggedIn) && (
-        <li>
-          <Link href="/add-product" className={navLinkClass("/add-product")}>
-            Add Product
-          </Link>
-        </li>
-      )}
-
       <li>
         <Link href="/about" className={navLinkClass("/about")}>
           About
@@ -77,6 +69,11 @@ const NavBar = () => {
       <li>
         <Link href="/dashboard">Dashboard</Link>
       </li>
+
+      <li>
+        <Link href="/add-product">Add Product</Link>
+      </li>
+
       <li>
         <a>Settings</a>
       </li>
